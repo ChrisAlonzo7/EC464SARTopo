@@ -5,8 +5,9 @@ SFE_UBLOX_GNSS myGNSS;
 
 void setup()
 {
-  Serial.begin(115200);  // 115200
+  Serial.begin(9600);  // 115200
   Serial.println("Test GPS");
+  myGPS.begin()
 
   Wire.begin();
 
@@ -38,7 +39,7 @@ void loop()
     if (str[loop] == 'G' && correct == 1) {
       correct = correct + 1;
     }
-    if (str[loop] == 'A' && correct = 2) {
+    if (str[loop] == 'A' && correct == 2) {
       flag = flag + 1;
       correct = 3;
     }
@@ -57,5 +58,4 @@ void loop()
 
   delay(250); //Don't pound too hard on the I2C bus
 }
-
 
