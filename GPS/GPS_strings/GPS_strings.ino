@@ -24,37 +24,15 @@ void loop()
 {
   myGNSS.checkUblox(); //See if new data is available. Process bytes as they come in.
 
-  String tmp = "";
-  String str = myGPS.getNMEA();
-  if (str.indexOf("$GNGGA")) {
+  String allSentences = "";
 
+  while (gnss.available(1000)) {
+    char sentence[256];
+    gnss.read(sentence, sizeof(sentence));
+    allSentences += sentence;
   }
-  int correct = 0;
-  int loop = 0;
-  int flag = 0;
-  while(true) {
-    if (str[loop] == 'G' && correct == 0) {
-        correct = correct + 1;
-    }
-    if (str[loop] == 'G' && correct == 1) {
-      correct = correct + 1;
-    }
-    if (str[loop] == 'A' && correct == 2) {
-      flag = flag + 1;
-      correct = 3;
-    }
-    if (str[loop] == '*' && flag > 0) {
-      flag = 0;
-      correct = 0;
-      break;
-    }
-    if (flag > 0) {
-      tmp += str[loop];
-    }
 
-    loop = loop + 1;
-  }
-  Serial.print(str);
+  Serial.println(allSentences);
 
   delay(250); //Don't pound too hard on the I2C bus
 }
