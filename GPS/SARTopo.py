@@ -31,5 +31,5 @@ with open(file_path, 'r') as f:
         # Read the next line
         line = f.readline().strip()
 
-        # Wait for 5 seconds before sending the next request
-        time.sleep(5)
+        # Wait for 1 seconds before sending the next request
+        time.sleep(1)
