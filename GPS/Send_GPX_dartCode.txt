@@ -1,0 +1,28 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
+
+void sendGpxFile() async {
+  // Replace with your GPX file name
+  final fileName = 'example.gpx';
+  
+  // Read the GPX file as bytes
+  final file = File(fileName);
+  final bytes = await file.readAsBytes();
+  
+  // Set the SARTopo API endpoint URL
+  final url = Uri.parse('https://caltopo.com/api/v1/position/report/?id=&lat=36.47375&lng=-118.8530');
+
+  // Create a multipart request to send the GPX file as binary data
+  final request = http.MultipartRequest('POST', url)
+    ..files.add(http.MultipartFile.fromBytes('file', bytes, filename: fileName));
+
+  // Send the request and wait for the response
+  final response = await request.send();
+
+  // Check if the request was successful
+  if (response.statusCode == 200) {
+    print('GPX file uploaded successfully!');
+  } else {
+    print('Error uploading GPX file: ${response.reasonPhrase}');
+  }
+}
