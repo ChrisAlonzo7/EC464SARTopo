@@ -6,7 +6,7 @@ void setup()
 {
   Serial.begin(115200);
   delay(1000); 
-  Serial.println("GPS DATA");
+  Serial.println("Latitude, Longitude, Heading (Returns heading in degrees * 10^-5), Ground Speed (mm/s), and Altitude (Returns the current altitude in mm above mean sea level).");
 
   Wire.begin();
 
@@ -22,15 +22,29 @@ void setup()
 
 void loop()
 {
-  if (myGNSS.getPVT() == true)
+  if (myGNSS.getPVT() == true) // getPVT() returns true when new data is received.
   {
-    Serial.print(F("Lat: "));
-    Serial.print(myGNSS.getLatitude());
-    Serial.print(F(" Long: "));
-    Serial.print(myGNSS.getLongitude());
-    Serial.print(F(" Alt: "));
+    Serial.print(myGNSS.getLatitude()/10000000.0, 7);
+    Serial.print(F(","));
+    Serial.print(myGNSS.getLongitude()/10000000.0, 7);
+    Serial.print(F(","));
+    Serial.print(myGNSS.getYear());
+    Serial.print(F("-"));
+    Serial.print(myGNSS.getMonth());
+    Serial.print(F("-"));
+    Serial.print(myGNSS.getDay());
+    Serial.print(F(" "));
+    Serial.print(myGNSS.getHour()-5);
+    Serial.print(F(":"));
+    Serial.print(myGNSS.getMinute());
+    Serial.print(F(":"));
+    Serial.print(myGNSS.getSecond());
+    Serial.print(F(","));
+    Serial.print(myGNSS.getHeading());
+    Serial.print(F(","));
+    Serial.print(myGNSS.getGroundSpeed());
+    Serial.print(F(","));
     Serial.print(myGNSS.getAltitudeMSL());
-    Serial.print(F(" (mm)"));
     Serial.println();
   }
 }
