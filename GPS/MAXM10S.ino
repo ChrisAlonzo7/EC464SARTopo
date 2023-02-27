@@ -2,6 +2,8 @@
 #include <SparkFun_u-blox_GNSS_v3.h>
 SFE_UBLOX_GNSS myGNSS; 
 
+unsigned long lastPrintTime = 0; // variable to store the last time the data was printed
+
 void setup()
 {
   Serial.begin(115200);
@@ -24,27 +26,31 @@ void loop()
 {
   if (myGNSS.getPVT() == true) // getPVT() returns true when new data is received.
   {
-    Serial.print(myGNSS.getLatitude()/10000000.0, 7);
-    Serial.print(F(","));
-    Serial.print(myGNSS.getLongitude()/10000000.0, 7);
-    Serial.print(F(","));
-    Serial.print(myGNSS.getYear());
-    Serial.print(F("-"));
-    Serial.print(myGNSS.getMonth());
-    Serial.print(F("-"));
-    Serial.print(myGNSS.getDay());
-    Serial.print(F(" "));
-    Serial.print(myGNSS.getHour()-5);
-    Serial.print(F(":"));
-    Serial.print(myGNSS.getMinute());
-    Serial.print(F(":"));
-    Serial.print(myGNSS.getSecond());
-    Serial.print(F(","));
-    Serial.print(myGNSS.getHeading());
-    Serial.print(F(","));
-    Serial.print(myGNSS.getGroundSpeed());
-    Serial.print(F(","));
-    Serial.print(myGNSS.getAltitudeMSL());
-    Serial.println();
+    unsigned long currentTime = millis(); // get the current time
+    if (currentTime - lastPrintTime >= 2000) { // check if 2 seconds have passed since the last print
+      lastPrintTime = currentTime; // update the last print time
+      Serial.print(myGNSS.getLatitude()/10000000.0, 7);
+      Serial.print(F(","));
+      Serial.print(myGNSS.getLongitude()/10000000.0, 7);
+      Serial.print(F(","));
+      Serial.print(myGNSS.getYear());
+      Serial.print(F("-"));
+      Serial.print(myGNSS.getMonth());
+      Serial.print(F("-"));
+      Serial.print(myGNSS.getDay());
+      Serial.print(F(" "));
+      Serial.print(myGNSS.getHour()-5);
+      Serial.print(F(":"));
+      Serial.print(myGNSS.getMinute());
+      Serial.print(F(":"));
+      Serial.print(myGNSS.getSecond());
+      Serial.print(F(","));
+      Serial.print(myGNSS.getHeading());
+      Serial.print(F(","));
+      Serial.print(myGNSS.getGroundSpeed());
+      Serial.print(F(","));
+      Serial.print(myGNSS.getAltitudeMSL());
+      Serial.println();
+    }
   }
 }
