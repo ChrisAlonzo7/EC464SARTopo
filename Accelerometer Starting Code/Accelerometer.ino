@@ -1,65 +1,57 @@
 #include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_MMA8451.h>
-#include <RTClib.h>
+#include <Adafruit_Sensor.h> 
+#include <Adafruit_ADXL345_U.h>
 
-RTC_DS1307 rtc; // create an instance of the RTC_DS1307 class
-Adafruit_MMA8451 accel = Adafruit_MMA8451();
-int sitThreshold = 100; // adjust this threshold to suit your needs
+Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified();
 
-void setup() {
-  Wire.begin();
-  Serial.begin(9600);
-  
-  if (!accel.begin()) {
-    Serial.println("Failed to initialize accelerometer");
-    while (1);
-  }
-  
-  accel.setRange(MMA8451_RANGE_2_G);
-  accel.setDataRate(MMA8451_DATARATE_800_HZ);
-  
-  if (!rtc.begin()) {
-    Serial.println("Failed to initialize RTC");
-    while (1);
-  }
-  
-  if (!rtc.isrunning()) {
-    Serial.println("RTC is not running, setting time...");
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__))); // set RTC time to compile time
-  }
+int count = 0;
+int flag = 0;
+
+void setup(void) 
+{
+   Serial.begin(9600);  
+   if(!accel.begin())
+   {
+      Serial.println("No ADXL345 sensor detected.");
+      while(1);
+   }
 }
+void loop(void) 
+{
+   sensors_event_t event; 
+   accel.getEvent(&event);
 
-void loop() {
-  sensors_event_t event;
-  accel.getEvent(&event);
-  
-  // calculate the magnitude of acceleration
-  float magnitude = sqrt(pow(event.acceleration.x, 2) + pow(event.acceleration.y, 2) + pow(event.acceleration.z, 2));
-  
-  // check if magnitude is below the sit threshold
-  if (magnitude < sitThreshold) {
-    Serial.print("sitting ");
-    printTime();
-  } else {
-    Serial.print("moving ");
-    printTime();
+   float x = event.acceleration.x;
+   float y = event.acceleration.y;
+   float z = event.acceleration.z;
+   z = z - 12.08;
+   y = y - 0.35;
+   x = x + 0.1;
+
+
+
+   Serial.print("X: "); Serial.print(x); Serial.print("  ");
+   Serial.print("Y: "); Serial.print(y); Serial.print("  ");
+   Serial.print("Z: "); Serial.print(z); Serial.print("  ");
+    Serial.println("m/s^2 ");
+   // Detecting sitting
+   if (y < -3) {
+     count = count + 1;
+   }
+   // Stoped sitting
+   if (y > -1) {
+     count = 0;
+     flag = 0;
+   }
+   // Dog has been detected sitting for 1.5 seconds (3 * 0.5s)
+  if (count > 2) {
+    flag = 1;
   }
-  
-  delay(1000); // wait 1 second before repeating the loop
-}
-
-void printTime() {
-  DateTime now = rtc.now(); // get the current date and time from the RTC
-  Serial.print(now.year(), DEC);
-  Serial.print('/');
-  Serial.print(now.month(), DEC);
-  Serial.print('/');
-  Serial.print(now.day(), DEC);
-  Serial.print(' ');
-  Serial.print(now.hour(), DEC);
-  Serial.print(':');
-  Serial.print(now.minute(), DEC);
-  Serial.print(':');
-  Serial.println(now.second(), DEC);
+  if (flag == 1) {
+    Serial.print("Sitting ");
+  }
+  if (flag == 0) {
+    Serial.print("Not Sitting ");
+  }
+   delay(500);
 }
