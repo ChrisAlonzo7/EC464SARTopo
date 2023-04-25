@@ -38,7 +38,7 @@ void loop(void)
    if (y < -3) {
      count = count + 1;
    }
-   // Stoped sitting
+   // Not sitting
    if (y > -1) {
      count = 0;
      flag = 0;
