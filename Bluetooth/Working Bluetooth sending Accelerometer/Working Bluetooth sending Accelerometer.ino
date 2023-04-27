@@ -57,7 +57,7 @@ void setup() {
 void loop() {
   // LEDS
   strip_1.setPixelColor(0, strip_1.Color(191, 0, 255));
-  strip_1.show(); // Update the first LED strip with the new colors
+  //strip_1.show(); // Update the first LED strip with the new colors
 
 
   // Read acceleration data from the ADXL345
