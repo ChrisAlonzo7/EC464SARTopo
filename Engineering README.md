@@ -19,4 +19,4 @@ Getting a GPS connection was also difficult for us. We were never able to get a 
 We hope that this addendum will be of help to you as you continue with the project. Remember that extensive research is key to finding the right parts and solutions for the project. We wish you the best of luck in continuing with the project and hope that it will be a success!
 
 Best regards,
-Ayrton
+Ayrton Reulet, Cristopher Alonso, Aanya Kutty, Ahsan Ragib
