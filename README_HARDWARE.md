@@ -27,11 +27,15 @@ The HC-05 Bluetooth module is responsible for transmitting the data that is bein
 ## PCB
 ![20230406_150227 (1)](https://user-images.githubusercontent.com/81998891/234969878-014bf317-cabe-443b-9315-975827e889d2.jpg)
 
-All of the sensors and microcontrollers are soldered onto a PCB board. The PCB is designed to allow all of the modules to connect to the exact pins on the Teensy. The Teensy and sensor modules are soldered on the top portion, while all of the wires connecting everything are soldered underneath the PCB to keep it organized.
-
 ![20230406_150233 (1)](https://user-images.githubusercontent.com/81998891/234969929-b88a3a39-3b3a-40bb-b902-e92c9421b3f8.jpg)
 
-Here the circuit diagram shows the wiring for all the modules underneath the PCB. 
+All of the sensors and microcontrollers are soldered onto a PCB board. The PCB is designed to allow all of the modules to connect to the exact pins on the Teensy. The Teensy and sensor modules are soldered on the top portion, while all of the wires connecting everything are soldered underneath the PCB to keep it organized.
+
+ 
+![Circuit Diagram (1)](https://user-images.githubusercontent.com/81998891/235005497-c5bf56a6-1cec-41bf-ad81-06e6aa1bc374.jpg)
+
+Here the circuit diagram shows the wiring for all the modules underneath the PCB.
+
 
 ## Power
 
