@@ -22,4 +22,4 @@ The app we developed to accompany the hardware focused primarily on functionalit
 We hope that this addendum will be of help to you as you continue with the project. Remember that extensive research is key to finding the right parts and solutions for the project. The software should come easy if you choose the 'best' hardware for the job rather than the hardware that 'can' do the job. We wish you the best of luck in continuing with the project and hope that it will be a success!
 
 Best regards,
-Ayrton Reulet, Cristopher Alonso, Aanya Kutty, Ahsan Ragib
+Ayrton Reulet, Cristopher Alonzo, Aanya Kutty, Ahsan Ragib
