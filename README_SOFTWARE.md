@@ -24,5 +24,35 @@ We also used the Adafruit_Sensor library, which is also built into the Arduino I
 
 ## Mobile Application
 
-Created using Flutter
+The mobile application for this project was created using the Flutter framework with the Dart programming language. The application was developed with Flutter version 3.7. The application allows the user to connect to the HC-05 Bluetooth module and receive data from the Arduino sensors. The application is designed to work on both Android and iOS platforms.
+
+### Dependencies
+
+The following dependencies were used in the Flutter application:
+
+- `file_picker: 4.2.3`
+- `path_provider: 2.0.8`
+- `logger: 1.0.0`
+- `gpx: 2.2.1`
+- `http: 0.13.3`
+- `filesystem_picker: 3.0.0`
+- `intl: 0.17.0`
+- `flutter_bluetooth_serial: 0.4.0`
+- `permission_handler: 10.2.0`
+- `audioplayers: 0.20.1`
+- `latlong2: 0.8.0`
+
+### Testing
+
+Initially, the application was tested on an emulated Google Pixel 3a running Android 10 with Android SDK. However, once Bluetooth functionality was implemented, the testing was shifted to a Samsung Galaxy S10 smartphone. The application was installed and run directly from Visual Studio Code Playground on the smartphone.
+
+To test the application with the physical HC-05 Bluetooth module, the module was paired with the smartphone and named "HC-05" in the device settings outside of the application. Once the module was paired, the application was able to connect to it from within the app settings.
+
+### Functionality
+
+The mobile application receives data from the Arduino sensors via the HC-05 Bluetooth module. The application parses the received data and displays the relevant information on the screen. The data displayed includes the position coordinates from the SparkFun GPS MAX-M10S module, the acceleration data from the Adafruit ADXL345 accelerometer, and the color and brightness of the Adafruit NeoPixel LED.
+
+In addition to displaying the received data, the application also allows the user to control the Adafruit NeoPixel LED. The user can set the color and brightness of the LED from within the app settings.
+
+The application also provides the functionality to export the position data as a GPX file. This feature utilizes the file_picker and path_provider dependencies to allow the user to select a destination folder and save the GPX file. The GPX file contains the recorded position coordinates from the SparkFun GPS MAX-M10S module.
 
