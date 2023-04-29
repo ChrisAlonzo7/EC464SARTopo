@@ -44,15 +44,16 @@ The following dependencies were used in the Flutter application:
 
 ### Testing
 
-Initially, the application was tested on an emulated Google Pixel 3a running Android 10 with Android SDK. However, once Bluetooth functionality was implemented, the testing was shifted to a Samsung Galaxy S10 smartphone. The application was installed and run directly from Visual Studio Code Playground on the smartphone.
+Initially, the application was tested on an emulated Google Pixel 3a running Android 10 (API Level 29) with Android SDK. However, once Bluetooth functionality was implemented, the testing was shifted to a real life physical Samsung Galaxy S10 smartphone. The application was installed and run directly from Visual Studio Code Playground on the smartphone.
 
-To test the application with the physical HC-05 Bluetooth module, the module was paired with the smartphone and named "HC-05" in the device settings outside of the application. Once the module was paired, the application was able to connect to it from within the app settings.
+To test the application with the physical HC-05 Bluetooth module, the module was paired with the smartphone and is named by default "HC-05", and we did not change the default name, in the device settings (outside of the application). Once the module was paired, you can connect to the Bluetooth module at anytime from within the app settings.
 
 ### Functionality
 
-The mobile application receives data from the Arduino sensors via the HC-05 Bluetooth module. The application parses the received data and displays the relevant information on the screen. The data displayed includes the position coordinates from the SparkFun GPS MAX-M10S module, the acceleration data from the Adafruit ADXL345 accelerometer, and the color and brightness of the Adafruit NeoPixel LED.
+The hardware device will send a string of data via Bluetooth to the application. The string will contain information from all the sensors, including GPS data such as position coordinates, altitude, and time. The application will parse through this string to extract the necessary data from each sensor. Once the data has been extracted, it will be packaged as JSON data and saved into a .GPX file with the press of a button on our application. This data can now be uploaded to a remote SARTopo server and sent over HTTP to the SARTopo endpoint.
 
-In addition to displaying the received data, the application also allows the user to control the Adafruit NeoPixel LED. The user can set the color and brightness of the LED from within the app settings.
+SARTopo is a mapping software used by search and rescue teams, which can display the live position of the canine. By sending the GPS data to the SARTopo endpoint (configurable in the app settings), the map will be able to display the live position of the dog, allowing the search and rescue team to track its movements in real-time.
 
-The application also provides the functionality to export the position data as a GPX file. This feature utilizes the file_picker and path_provider dependencies to allow the user to select a destination folder and save the GPX file. The GPX file contains the recorded position coordinates from the SparkFun GPS MAX-M10S module.
+In addition to the GPS data, the hardware device will also send the accelerometer data to the application. The accelerometer data will have already been processed and calculated by the Teensy in the hardware device. The accelerometer data will simply be a sitting or not sitting message. If the app receives a sitting message, it will display a message on our app indicating that the dog is sitting. The message will stop appearing once the app receives a not sitting message from the hardware.
 
+Overall, the application will receive data from the hardware device via Bluetooth, parse through the data to extract the necessary information from each sensor, package the data as JSON, and send it over HTTP to the SARTopo endpoint. The app will also receive the accelerometer data and display a message if the dog is sitting.
